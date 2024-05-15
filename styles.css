@@ -24,15 +24,17 @@ body {
     justify-content: flex-start;
 }
 
-.inputs {
+.answer {
     color: #645D78;
     font-weight: 500;
     font-size: 32px;
+    min-height: 34px;
 }
 
-.answer {
+.inputs {
     color: #F9F9FB;
     font-size: 48px;
+    min-height: 48px;
 }
 
 .operator {
@@ -100,6 +102,6 @@ body {
     background-color: #3E345A;
 }
 
-.zero {
+.num-0 {
     width: 180px;
 }
