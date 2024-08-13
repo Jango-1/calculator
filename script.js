@@ -1,45 +1,3 @@
-/*Operator functions for add, subtract, multiply, divide.*/
-function add (num1, num2) {
-    return num1 + num2;
-}
-function subtract (num1, num2) {
-    return num1 - num2;
-}
-function multiply (num1, num2) {
-    return num1 * num2;
-}
-function divide (num1, num2) {
-    return num1 / num2;
-}
-
-/*Variables that will be changed based on button clicks and calculations.*/
-let num1 = "";
-let num2 = "";
-let operator = "";
-
-let currentInput = "";
-
-let value;
-
-/*Operate function; takes the user-input value of operator, num1,
-and num2. Returns the corresponding calculated result.*/
-function operate (operator, num1, num2) {
-    if (operator === '+') {
-        return add(num1, num2);
-    } else if (operator === '-') {
-        return subtract(num1, num2);
-    } else if (operator === '×') {
-        return multiply(num1, num2);
-    } else if (operator === '/') {
-        if (num2 === 0) {
-            return 'Error';
-        }
-        return divide(num1, num2);
-    } else {
-        return 'Invalid.';
-    }
-}
-
 /*Query selectors for the 'results' portion of the
 calculation and for the current input value that the user has selected.*/
 const numInput = document.querySelector(".num-input");
@@ -68,6 +26,46 @@ const numSeven = document.querySelector(".num-7");
 const numEight = document.querySelector(".num-8");
 const numNine = document.querySelector(".num-9");
 
+/*Variables that will be changed based on button clicks and calculations.*/
+let num1 = "";
+let num2 = "";
+let operator = "";
+let currentInput = "";
+let result = null;
+
+/*Operator functions for add, subtract, multiply, divide.*/
+function add (num1, num2) {
+    return num1 + num2;
+}
+function subtract (num1, num2) {
+    return num1 - num2;
+}
+function multiply (num1, num2) {
+    return num1 * num2;
+}
+function divide (num1, num2) {
+    return num1 / num2;
+}
+
+/*Operate function; takes the user-input value of operator, num1,
+and num2. Returns the corresponding calculated result.*/
+function operate (operator, num1, num2) {
+    if (operator === '+') {
+        return add(num1, num2);
+    } else if (operator === '-') {
+        return subtract(num1, num2);
+    } else if (operator === '×') {
+        return multiply(num1, num2);
+    } else if (operator === '/') {
+        if (num2 === 0) {
+            return 'Error';
+        }
+        return divide(num1, num2);
+    } else {
+        return 'Invalid.';
+    }
+}
+
 /*Event listener for the clear button. Removes the current input,
 any other inputs, and the answer above.*/
 clear.addEventListener("click", () => {
@@ -80,6 +78,8 @@ clear.addEventListener("click", () => {
     currentInput = "";
     num1 = "";
     num2 = "";
+    operator = "";
+    result = null; //reset the result
 });
 
 /*Event listener for the numbers.*/
@@ -136,37 +136,66 @@ numNine.addEventListener("click", () => {
 
 /*Operator event listeners.*/
 addition.addEventListener("click", () => {
-    num1 += currentInput;
+    if (result !== null) {
+        num1 = result;
+        currentInput = "";
+    } else {
+        num1 += currentInput;
+    }
     numInput.textContent = " ";
     calcOperator.textContent = "+";
     currentInput = "";
     operator = "+";
 });
+
 subtraction.addEventListener("click", () => {
-    num1 += currentInput;
+    if (result !== null) {
+        num1 = result;
+        currentInput = "";
+    } else {
+        num1 += currentInput;
+    }
     numInput.textContent = " ";
     calcOperator.textContent = "-";
     currentInput = "";
     operator = "-";
 });
+
 multiplication.addEventListener("click", () => {
-    num1 += currentInput;
+    if (result !== null) {
+        num1 = result;
+        currentInput = "";
+    } else {
+        num1 += currentInput;
+    }
     numInput.textContent = " ";
     calcOperator.textContent = "×";
     currentInput = "";
     operator = "×";
 });
+
 division.addEventListener("click", () => {
-    num1 += currentInput;
+    if (result !== null) {
+        num1 = result;
+        currentInput = "";
+    } else {
+        num1 += currentInput;
+    }
     numInput.textContent = " ";
     calcOperator.textContent = "/";
     currentInput = "";
     operator = "/";
 });
 
-
 equalSign.addEventListener("click", () => {
-    num2 += currentInput;
-    let result = operate(operator, parseInt(num1), parseInt(num2));
-    answer.textContent = result;
+    if (currentInput !== "") {
+        num2 = currentInput;
+    }
+    if (num1 !== "" && operator !== "" && num2 !== "") {
+        result = operate(operator, parseFloat(num1), parseFloat(num2));
+        answer.textContent = result;
+        num1 = result; // Set the result as the new num1
+        currentInput = ""; // Clear current input for next operation
+        operator = ""; // Reset operator after calculation
+    }
 });
