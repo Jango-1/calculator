@@ -33,55 +33,6 @@ let operator = "";
 let currentInput = "";
 let result = null;
 
-/*Operator functions for add, subtract, multiply, divide.*/
-function add (num1, num2) {
-    return num1 + num2;
-}
-function subtract (num1, num2) {
-    return num1 - num2;
-}
-function multiply (num1, num2) {
-    return num1 * num2;
-}
-function divide (num1, num2) {
-    return num1 / num2;
-}
-
-/*Operate function; takes the user-input value of operator, num1,
-and num2. Returns the corresponding calculated result.*/
-function operate (operator, num1, num2) {
-    if (operator === '+') {
-        return add(num1, num2);
-    } else if (operator === '-') {
-        return subtract(num1, num2);
-    } else if (operator === '×') {
-        return multiply(num1, num2);
-    } else if (operator === '/') {
-        if (num2 === 0) {
-            return 'Error';
-        }
-        return divide(num1, num2);
-    } else {
-        return 'Invalid.';
-    }
-}
-
-/*Event listener for the clear button. Removes the current input,
-any other inputs, and the answer above.*/
-clear.addEventListener("click", () => {
-    numInput.textContent = " ";
-    firstInput.textContent = " ";
-    secondInput.textContent = " ";
-    calcOperator.textContent = " ";
-    answer.textContent = " ";
-
-    currentInput = "";
-    num1 = "";
-    num2 = "";
-    operator = "";
-    result = null; //reset the result
-});
-
 /*Event listener for the numbers.*/
 numZero.addEventListener("click", () => {
     currentInput += 0;
@@ -132,6 +83,55 @@ numNine.addEventListener("click", () => {
     currentInput += 9;
     numInput.textContent += 9;
     calcOperator.textContent = "";
+});
+
+/*Operator functions for add, subtract, multiply, divide.*/
+function add (num1, num2) {
+    return num1 + num2;
+}
+function subtract (num1, num2) {
+    return num1 - num2;
+}
+function multiply (num1, num2) {
+    return num1 * num2;
+}
+function divide (num1, num2) {
+    return num1 / num2;
+}
+
+/*Operate function; takes the user-input value of operator, num1,
+and num2. Returns the corresponding calculated result.*/
+function operate (operator, num1, num2) {
+    if (operator === '+') {
+        return add(num1, num2);
+    } else if (operator === '-') {
+        return subtract(num1, num2);
+    } else if (operator === '×') {
+        return multiply(num1, num2);
+    } else if (operator === '/') {
+        if (num2 === 0) {
+            return 'Error';
+        }
+        return divide(num1, num2);
+    } else {
+        return 'Invalid.';
+    }
+}
+
+/*Event listener for the clear button. Removes the current input,
+any other inputs, and the answer above.*/
+clear.addEventListener("click", () => {
+    numInput.textContent = " ";
+    firstInput.textContent = " ";
+    secondInput.textContent = " ";
+    calcOperator.textContent = " ";
+    answer.textContent = " ";
+
+    currentInput = "";
+    num1 = "";
+    num2 = "";
+    operator = "";
+    result = null; //reset the result
 });
 
 /*Operator event listeners.*/
